@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="twelve columns">
+    <nav class="top-bar">
+      <ul>
+        <!-- Title Area -->
+        <li class="name">
+          <h1>
+            <a href="#">
+              练习系统
+            </a>
+          </h1>
+        </li>
+        <li class="toggle-topbar"><a href="#"></a></li>
+      </ul>
+
+      <section>
+        <!-- Left Nav Section -->
+        <ul class="left">
+          <li class="divider"></li>
+          <li>
+            <%= link_to "考试列表", { :controller => "/student/exam", :action => "list" } %>
+          </li>
+          <li class="divider"></li>
+        </ul>
+
+        <!-- Right Nav Section -->
+        <% if session[:student] %>
+            <ul class="right">
+              <li class="divider"></li>
+              <li id="loginBtnGroup" class="has-dropdown" >
+                <a href="#">学号：<%= session[:student][:number] %>&nbsp;&nbsp;&nbsp;&nbsp;姓名：<%= session[:student][:name] %>&nbsp;&nbsp;&nbsp;&nbsp;班级：<%= session[:student][:school_class] %></a>
+                <ul class="dropdown">
+                  <li><%= link_to "退出", :controller => "/student/passport", :action => "logout"  %></li>
+                </ul>
+              </li>
+            </ul>
+        <% end %>
+      </section>
+    </nav>
+  </div>
+</div>

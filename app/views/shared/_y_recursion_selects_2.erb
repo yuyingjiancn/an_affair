@@ -1,0 +1,26 @@
+<div id="<%= id %>" style="z-index: 1000">
+  <div data-bind="foreach: yRecursionSelects">
+    <div style="float:left; margin-left: 2px;">
+      <select style="display:none;" data-bind="attr: { 'level': level }">
+        <!-- ko foreach: soptions() -->
+        <!-- ko if: $index() === 0 -->
+        <option  data-bind="text: name, attr: { value: id }"></option>
+        <!-- /ko -->
+        <!-- ko if: $index() !== 0 -->
+        <option  data-bind="text: name, attr: { value: id }" ></option>
+        <!-- /ko -->
+        <!-- /ko -->
+      </select>
+      <div class="custom dropdown">
+        <a href="#" class="current" data-bind="text: soptions()[selectedIndex()].name">
+        </a>
+        <a href="#" class="selector"></a>
+        <ul>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div style="clear: both;"></div>
+  <%= f.text_field "category_id", :style => "display: none", :type => "selectedValue" %>
+</div>

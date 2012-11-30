@@ -1,0 +1,27 @@
+<% content_for :main do %>
+<div class="row" style="padding: 120px 0;">
+  <div class="four columns"></div>
+  <div class="four columns">
+    <%= form_tag do %>
+      <fieldset>
+        <legend>管理登录</legend>
+
+        <div <% if flash[:error_account] %>class="error"<% end %>>
+            <label>用户名</label>
+            <input name="account" type="text" placeholder="请输入用户名" />
+            <% if flash[:error_account] %><small class="error">无此用户</small><% end %>
+        </div>
+
+        <div <% if flash[:error_password] %>class="error"<% end %>>
+            <label>密码</label>
+            <input name="password" type="password" placeholder="请输入密码" />
+          <% if flash[:error_password] %><small class="error">密码错误</small><% end %>
+        </div>
+
+      </fieldset>
+      <input type="submit"  value="登录" class="small button" style="float: right;" />
+    <% end %>
+  </div>
+  <div class="four columns"></div>
+</div>
+<% end %>

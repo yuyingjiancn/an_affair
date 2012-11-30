@@ -1,0 +1,54 @@
+<% content_for :main do %>
+<script type="text/javascript">
+var rightAnswersServer = <%= raw @right_answers.to_json %>;
+var studentsAnswersServer = <%= raw @student_answers.to_json %>;
+</script>
+<div class="row">
+  <div class="twelve columns">
+    <span style="margin-left: 6px;">班级：<%= @school_class.name %></span><span style="margin-left: 30px;">测试试卷：<%= @exam_paper.name %></span>
+  </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+  <div class="twelve columns">
+  <table class="twelve">
+    <thead id="resultTHead">
+    <tr>
+      <th style="width:80px;"><a id="sortByNumber" href="#" class="small button">学号</a></th>
+      <th style="width:60px;">姓名</th>
+      <!-- ko foreach: rightAnswers -->
+      <th data-bind="text: orderNum"></th>
+      <!-- /ko -->
+      <th style="width:80px;"><a id="sortByScore" href="#" class="small button">得分</a></th>
+      <th style="width:80px;">删除</th>
+    </tr>
+    </thead>
+    <tbody id="resultTBody" data-bind="foreach: studentsAnswers">
+       <tr>
+         <td data-bind="text: studentNumber"></td>
+         <td data-bind="text: studentName"></td>
+         <!-- ko foreach: result -->
+         <!-- ko if: right -->
+         <td data-bind="text: answer"></td>
+         <!-- /ko -->
+         <!-- ko ifnot: right -->
+         <td style="color:#FFF; background-color: #F00;" data-bind="text: answer"></td>
+         <!-- /ko -->
+         <!-- /ko -->
+         <td data-bind="text: score"></td>
+         <td><a href="#" type="delete" data-bind="attr: { erId: examResultId }" class="tiny button">删除</a></td>
+       </tr>
+    </tbody>
+    <tfoot id="resultTFoot">
+       <tr>
+         <td colspan="2">平均得分</td>
+         <!-- ko foreach: rightAnswers -->
+         <td data-bind="text: averageScore"></td>
+         <!-- /ko -->
+         <td data-bind="text: studentsAverageScore"></td>
+         <td></td>
+       </tr>
+    </tfoot>
+  </table>
+  </div>
+</div>
+<% end %>

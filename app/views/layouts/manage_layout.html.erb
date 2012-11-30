@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title></title>
+
+  <%= stylesheet_link_tag "css/common.css" %>
+
+  <%= javascript_include_tag "foundation-3.2.2/javascripts/modernizr.foundation" %>
+
+  <!-- IE Fix for HTML5 Tags -->
+  <!--[if lt IE 9]>
+  <%= javascript_include_tag "js/html5" %>
+  <![endif]-->
+  <%= csrf_meta_tags %>
+</head>
+<body>
+    <div class="row">
+      <div class="twelve columns">
+        <nav class="top-bar">
+          <ul>
+            <!-- Title Area -->
+            <li class="name">
+              <h1>
+                <a href="#">
+                  后台管理
+                </a>
+              </h1>
+            </li>
+            <li class="toggle-topbar"><a href="#"></a></li>
+          </ul>
+
+          <section>
+            <!-- Left Nav Section -->
+            <ul class="left">
+              <li class="divider"></li>
+              <li class="has-dropdown">
+                <a class="active" href="#">单选题</a>
+                <ul class="dropdown">
+                  <li><%= link_to "管理", :controller => "/manage/single_choices", :action => "list", :category_id => 0 %></li>
+                  <li><%= link_to "添加", :controller => "/manage/single_choices", :action => "create"  %></li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="has-dropdown">
+                <a class="active" href="#">试卷管理</a>
+                <ul class="dropdown">
+                  <li><%= link_to "管理", :controller => "/manage/exam_papers", :action => "list" %></li>
+                  <li><%= link_to "添加", :controller => "/manage/exam_papers", :action => "create"  %></li>
+                </ul>
+              </li>
+              <li class="divider hide-for-small"></li>
+            </ul>
+
+            <!-- Right Nav Section -->
+            <% if @manager %>
+            <ul class="right">
+              <li class="divider"></li>
+              <li id="loginBtnGroup" class="has-dropdown" >
+                <a href="#"><%= @manager  %></a>
+                <ul class="dropdown">
+                  <li><%= link_to "退出", :controller => "/manage/passport", :action => "logout"  %></li>
+                </ul>
+              </li>
+            </ul>
+            <% end %>
+          </section>
+        </nav>
+    </div>
+  </div>
+    <div class="row">
+      <div class="twelve columns">
+        <% if flash[:alert_normal] %><div class="alert-box success"><%= flash[:alert_normal] %><a href="" class="close">&times;</a></div><% end %>
+        <% if flash[:alert] %><div class="alert-box success"><%= flash[:alert] %><a href="" class="close">&times;</a></div><% end %>
+        <% if flash[:alert_secondary] %><div class="alert-box success"><%= flash[:alert_secondary] %><a href="" class="close">&times;</a></div><% end %>
+        <% if flash[:success] %><div class="alert-box success"><%= flash[:success] %><a href="" class="close">&times;</a></div><% end %>
+       </div>
+    </div>
+<%= yield :main %>
+
+
+    <div class="row">
+      <div class="four columns">
+        <p>版权所有&copy; 虞颖健.</p>
+      </div>
+      <div class="six columns">
+        <p>this system is built by yuyingjian.</p>
+      </div>
+      <div class="two columns">
+        <p>2012年11月制</p>
+      </div>
+    </div>
+
+<script type="text/javascript">
+window.questionCategories = <%= raw $question_categories.to_json %>;
+window.currentOnlyPath="<%= url_for(:only_path => true) %>";</script>
+<%= javascript_include_tag "js/common" %>
+</body>
+</html>

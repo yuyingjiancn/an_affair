@@ -1,0 +1,59 @@
+<% content_for :main do %>
+<div class="row">
+  <div class="twelve columns">
+
+    <form class="custom">
+      <label>题目分类选择</label>
+      <div style="float: left">
+      <%= render :partial => "shared/y_recursion_query_selects", :locals => { :id => 'questionCategoriesSelect', :selected_id => @q_cate_id } %>
+      </div>
+      <div style="float: left;margin-left: 20px; margin-top: 16px;"> <button id="btnGoto" type="button" class="small button">转到</button> </div>
+      <div style="clear: both;"></div>
+    </form>
+
+    <form class="custom">
+      <label>试卷选择</label>
+      <% unless @exam_papers.empty?  %>
+      <select class="support attribute" style="display:none;" id="selExamPaper">
+        <%= @exam_papers.each do |ep| %>
+        <option value="<%= ep.id %>"><%= ep.name %></option>
+        <% end %>
+      </select>
+      <% end  %>
+      <% if @exam_papers.empty?  %>
+      没有可编辑的试卷
+      <% end  %>
+    </form>
+
+
+
+    <% @single_choices.each do |sc| %>
+        <div style="border: groove 1px #ccc; margin: 5px; padding:5px;">
+            <div style="border-bottom: dashed 1px #c3c3c3">
+              <%= raw sc.content.gsub("\\\\", "\\") %>
+            </div>
+            <div style="padding: 5px;">
+              <span style="float:left;">id: <%= sc.id %>&nbsp;|&nbsp;答案：<%= sc.answer %></span>
+              <%= link_to "删除", { :controller => "/manage/single_choices", :action => "delete", :id => sc.id, :category_id => @q_cate_id }, :type => "delete", :class => "tiny button", :style => "float: right; margin-left: 6px;" %>
+              <%= link_to "修改", { :controller => "/manage/single_choices", :action => "edit", :id => sc.id}, :class => "tiny button", :style => "float: right; margin-left: 6px;" %>
+              <% unless @exam_papers.empty?  %><a href="#" type="addToExamPaper" class="tiny button" style="float: right;" qid="<%= sc.id %>">加入选中试卷</a><% end %>
+              <div style="clear: both;"></div>
+            </div>
+        </div>
+  <% end %>
+
+
+
+  </div>
+</div>
+<div class="row">
+  <div class="twelve columns">
+    <div class="digg_pagination" align="center" style="margin: 0 auto;">
+      <div clas="page_info">
+        <%= page_entries_info @single_choices %>
+      </div>
+      <%= will_paginate @single_choices, :container => false %>
+    </div>
+  </div>
+</div>
+<% end %>

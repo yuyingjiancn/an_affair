@@ -1,0 +1,31 @@
+# PostgreSQL. Versions 8.2 and up are supported.
+#
+# Configure Using Gemfile
+# gem 'activerecord-jdbcpostgresql-adapter'
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: an_affair_production
+  username: postgres
+  password: temp911
+  host: 10.0.0.36
+  port: 5432
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: an_affair_test
+  username: postgres
+  password: temp911
+  host: 10.0.0.36
+  port: 5432
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: an_affair_production
+  username: postgres
+  password: 19820124
+  host: localhost
+  port: 5432

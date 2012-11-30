@@ -1,0 +1,29 @@
+<% content_for :main do %>
+<div class="row">
+  <table id="tblExamPapers" class="twelve">
+    <thead>
+    <tr>
+      <th>班级名称</th>
+      <th style="width:80px;">成绩查看</th>
+    </tr>
+    </thead>
+    <% unless @school_classes.empty? %>
+    <tbody>
+    <% @school_classes.each do |sc| %>
+    <tr>
+      <td><%= sc.name %></td>
+      <td>
+       <%= link_to "查看", { :controller => "/manage/exam_papers_single_choices", :action => "view_result", :school_class_id => sc.id, :exam_id => params[:exam_id] } %>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+    <% end %>
+    <% if @school_classes.empty? %>
+    <tfoot>
+        <tr><td colspan="2">没有任何班级</td></tr>
+    </tfoot>
+    <% end %>
+  </table>
+</div>
+<% end %>

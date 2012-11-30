@@ -1,0 +1,29 @@
+<% content_for :main do %>
+<div class="row">
+  <div class="twelve columns">
+    <% if @exam_paper %>
+        <% if @epsc_list.empty? %>
+            该试卷还没有添加任何题目
+        <% else %>
+            <% @epsc_list.each do |epsc| %>
+                <div style="border: groove 1px #ccc; margin: 5px; padding:5px;">
+                  <div style="border-bottom: dashed 1px #c3c3c3">
+                    <%= raw epsc.single_choice.content.gsub("\\\\", "\\") %>
+                  </div>
+                  <div style="padding: 5px;">
+                    <span style="float:left;">id: <%= epsc.single_choice.id %>&nbsp;|&nbsp;答案：<%= epsc.single_choice.answer %></span>
+                    <%= link_to "删除", {:controller => "/manage/exam_papers_single_choices", :action => "destroy", :id => epsc.id, :eid => @exam_paper.id }, :class => "small button", :style => "float: right; margin-top: 2px;margin-left:6px;"  %>
+                    <a href="#" style="float: right; margin-top: 2px;margin-left:6px;" class="small button" type="changeOrderNum" epscId="<%= epsc.id %>">修改</a>
+                    <span  style="float:right;margin-left:6px;"><input type="text" value="<%= epsc.order_num %>" style="width: 60px;"></span>
+                    <span  style="float:right; margin-top: 10px;">排序号码：<span type="orderNum"><%= epsc.order_num %></span></span>
+                    <div style="clear: both;"></div>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
+    <% else %>
+       这是一份不存在的试卷-_-
+    <% end %>
+  </div>
+</div>
+<% end %>

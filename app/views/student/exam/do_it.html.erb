@@ -1,0 +1,42 @@
+<% content_for :nav do %>
+ <%= render :partial => "shared/student_nav" %>
+<% end %>
+
+<% content_for :main do %>
+<div class="row">
+  <div class="twelve columns">
+    考试名称：<%= @exam_paper.name %>
+    <input id="iptExamPaperId" type="text" value="<%= @exam_paper.id %>" style="display: none;" />
+  </div>
+</div>
+<div class="row">
+  <div class="twelve columns">
+    <form class="custom">
+    <% if @epscs
+        @epscs.each do |epsc| %>
+    <div type="singleChoice" epscId ="<%= epsc.id %>" orderNum="<%= epsc.order_num %>">
+      <div type="content">
+        <p style="margin-bottom: -20px;">第<%= epsc.order_num %>题</p>
+        <p><%= raw epsc.single_choice.content.gsub("\\\\", "\\") %></p>
+      </div>
+      <div data-type="choices">
+        <label for="radio_<%= epsc.id %>_a" style="float: left; margin-right: 20px;"><input name="radio_<%= epsc.id %>" type="radio" id="radio_<%= epsc.id %>_a" value="A"><span class="custom radio"></span> A</label>
+        <label for="radio_<%= epsc.id %>_b" style="float: left; margin-right: 20px;"><input name="radio_<%= epsc.id %>" type="radio" id="radio_<%= epsc.id %>_b" value="B"><span class="custom radio"></span> B</label>
+        <label for="radio_<%= epsc.id %>_c" style="float: left; margin-right: 20px;"><input name="radio_<%= epsc.id %>" type="radio" id="radio_<%= epsc.id %>_c" value="C"><span class="custom radio"></span> C</label>
+        <label for="radio_<%= epsc.id %>_d" style="float: left; margin-right: 20px;"><input name="radio_<%= epsc.id %>" type="radio" id="radio_<%= epsc.id %>_d" value="D"><span class="custom radio"></span> D</label>
+        <div style="clear: both;"></div>
+      </div>
+    </div>
+    <%  end
+       end %>
+    </form>
+    <div>
+      <button id="btnSubmit" class="button" type="button">交卷</button>
+    </div>
+  </div>
+</div>
+
+<div id="modalAJAX" class="reveal-modal [expand, xlarge, large, medium, small]" style="display: none">
+  <h2>服务端正在操作中</h2>
+</div>
+<% end %>

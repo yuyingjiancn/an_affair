@@ -1,0 +1,45 @@
+<% content_for :nav do %>
+ <%= render :partial => "shared/student_nav" %>
+<% end %>
+
+<% content_for :main do %>
+<div class="row">
+  <div class="twelve columns">
+      <table class="twelve">
+        <thead>
+        <tr>
+          <th>考试名称</th>
+          <th style="width:120px;"></th>
+          <th style="width:120px;"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% unless @exam_papers.empty?
+             @exam_papers.each do |ep| %>
+        <tr>
+          <td><%= ep.name %></td>
+          <td><%= link_to "开始答题", {:controller => "/student/exam", :action => "do_it", :id => ep.id } %></td>
+          <td><%= link_to "查看统计", {:controller => "/student/exam", :action => "view_result", :id => ep.id } %></td>
+        </tr>
+        <%   end
+           end %>
+        </tbody>
+        <% if @exam_papers.empty? %>
+        <tfoot>
+          <tr><td colspan="3">目前没有任何考试</td></tr>
+        </tfoot>
+        <% end %>
+      </table>
+  </div>
+</div>
+<div class="row">
+  <div class="twelve columns">
+    <div class="digg_pagination" align="center">
+      <div clas="page_info">
+        <%= page_entries_info @exam_papers %>
+      </div>
+      <%= will_paginate @exam_papers, :container => false %>
+    </div>
+  </div>
+</div>
+<% end %>

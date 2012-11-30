@@ -1,0 +1,19 @@
+<% content_for :main do %>
+<div class="row">
+  <div class="twelve columns">
+      <%= form_for @exam_paper,:url=>{:action => "update" }, :method => "post", :html => {:class => "custom"} do |f| %>
+        <fieldset style="padding:10px;">
+          <legend>添加空白试卷</legend>
+        <label>试卷id</label>
+        <%= f.text_field "id", :readonly => "readonly" %>
+        <label>试卷名称</label>
+        <%= f.text_field "name" %>
+          <label for="exam_paper_editable" style="float:left; margin-left: 20px;"><%= f.radio_button :editable, "true" %> 可编辑</label>
+          <label for="exam_paper_editable" style="float:left; margin-left: 20px;"><%= f.radio_button :editable, "false" %> 不可编辑</label>
+          <input type="submit"  value="保存" class="small button" style="float: right;" />
+        </fieldset>
+
+      <% end %>
+  </div>
+</div>
+<% end %>

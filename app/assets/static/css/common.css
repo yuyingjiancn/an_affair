@@ -1,0 +1,9 @@
+/*
+ *= require_self
+ *= require foundation-3.2.2/stylesheets/foundation
+ *= require foundation-3.2.2/stylesheets/app
+ *= require css/pagination
+*/
+
+.copyright { background: #3f3f3f; color: #fff; margin-top: 30px; }
+

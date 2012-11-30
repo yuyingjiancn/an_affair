@@ -1,0 +1,47 @@
+<% content_for :main do %>
+<div class="row">
+  <table id="tblExamPapers" class="twelve">
+    <thead>
+    <tr>
+      <th>试卷名称</th>
+      <th style="width:70px;">管理</th>
+      <th style="width:70px;">成绩</th>
+      <th style="width:70px;">改名</th>
+      <th style="width:70px;">删除</th>
+    </tr>
+    </thead>
+    <% unless @eps.empty? %>
+    <tbody>
+    <% @eps.each do |ep| %>
+    <tr>
+      <td><%= raw ep.name %></td>
+
+      <td><%= link_to "查看", { :controller => "/manage/exam_papers_single_choices", :action => "list_by_exam",:id => ep.id }, :class => "tiny button" %></td>
+      <td><%= link_to "成绩", { :controller => "/manage/school_classes", :action =>"list_by_exam", :exam_id => ep.id }, :class => "tiny button" %></td>
+      <td><%= link_to "修改", { :controller => "/manage/exam_papers", :action => "edit",:id => ep.id }, :class => "tiny button" %></td>
+      <td><%= link_to "删除", { :controller => "/manage/exam_papers", :action => "delete",:id => ep.id },
+                              :type => "delete", :class => "tiny button" %></td>
+    </tr>
+    <% end %>
+    </tbody>
+    <% end %>
+    <% if @eps.empty? %>
+    <tfoot>
+        <tr><td colspan="5">还没有发布任何试卷</td></tr>
+    </tfoot>
+    <% end %>
+  </table>
+</div>
+<div class="row">
+  <div class="twelve columns">
+    <div class="digg_pagination" align="center">
+      <div clas="page_info">
+        <%= page_entries_info @eps %>
+      </div>
+      <div  align="center">
+      <%= will_paginate @eps, :container => false %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

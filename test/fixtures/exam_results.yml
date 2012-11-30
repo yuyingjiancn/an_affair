@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  result: MyText
+  exam_paper: 
+  student: 
+
+two:
+  result: MyText
+  exam_paper: 
+  student: 
